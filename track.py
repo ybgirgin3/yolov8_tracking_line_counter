@@ -188,6 +188,7 @@ def run(
                     txt_file_name = p.parent.name  # get folder name containing current img
                     save_path = str(save_dir / p.parent.name)  # im.jpg, vid.mp4, ...
             curr_frames[i] = im0
+            #print("curr frames: ", curr_frames[i])
 
             txt_path = str(save_dir / 'tracks' / txt_file_name)  # im.txt
             s += '%gx%g ' % im.shape[2:]  # print string
@@ -258,6 +259,8 @@ def run(
                                 (f'{id} {conf:.2f}' if hide_class else f'{id} {names[c]} {conf:.2f}'))
                             color = colors(c, True)
                             annotator.box_label(bbox, label, color=color)
+                            # NOTE: add line
+                            annotator.line()
                             
                             if save_trajectories and tracking_method == 'strongsort':
                                 q = output[7]
@@ -272,6 +275,7 @@ def run(
                 
             # Stream results
             im0 = annotator.result()
+            #print("im0 as results: ", im0)
             if show_vid:
                 if platform.system() == 'Linux' and p not in windows:
                     windows.append(p)
